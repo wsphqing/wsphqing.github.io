@@ -122,7 +122,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/05/26/Flexbox布局/18.png">
 <meta property="og:image" content="http://yoursite.com/2017/05/26/Flexbox布局/19.png">
 <meta property="og:image" content="http://yoursite.com/2017/05/26/Flexbox布局/20.png">
-<meta property="og:updated_time" content="2017-05-27T05:58:17.639Z">
+<meta property="og:updated_time" content="2017-05-27T06:02:27.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flexbox布局">
 <meta name="twitter:description" content="Flexbox布局（Flexible Box）模块旨在提供一个更加有效的方式指定、调整和分布一个容器里的项目布局，即使它们的大小是未知或者是动态的（这里我们成为Flex）。 Flex布局主要思想是让容器有能力让其子项目能够改变其宽度、高度（甚至是顺序），以最佳的方式填充可用空间（主要是为了适应所有类型的显示设备和屏幕大小）。Flex容器会使子项目（伸缩项目）扩展来填满可用空间，或缩小他们以防止溢">
@@ -396,7 +396,12 @@
 <p><strong>flex-direction</strong>：控制flex项目沿着主轴（Main Axis）的排列方向。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123; </div><div class="line">    <span class="attribute">flex-direction</span>: row | row-reverse | column | column-reverse; </div><div class="line">&#125;</div><div class="line"><span class="comment">/*row：从左向右水平排列*/</span></div><div class="line"><span class="comment">/*column：从上到下垂直排列*/</span></div></pre></td></tr></table></figure></p>
 <img src="/2017/05/26/Flexbox布局/21.png" alt="21.png" title="">
 <p><strong>flex-wrap</strong>：控制是否换行的<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span>&#123; </div><div class="line">    <span class="attribute">flex-wrap</span>: nowrap | wrap | wrap-reverse; </div><div class="line">&#125;</div><div class="line"><span class="comment">/*wrap：换行*/</span></div><div class="line"><span class="comment">/*wrap-reverse：换行，倒叙呈现行*/</span></div></pre></td></tr></table></figure></p>
-<p><strong>nowrap</strong>：默认不换行<br><img src="/2017/05/26/Flexbox布局/22.png" alt="22.png" title=""><br><strong>wrap</strong>：换行，第一行在上方。<br><img src="/2017/05/26/Flexbox布局/23.png" alt="23.png" title=""><br><strong>wrap-reverse</strong>：换行，第一行在下方。<br><img src="/2017/05/26/Flexbox布局/24.png" alt="24.png" title=""></p>
+<ul>
+<li>nowrap：默认不换行<img src="/2017/05/26/Flexbox布局/22.png" alt="22.png" title=""></li>
+<li>wrap：换行，第一行在上方。<img src="/2017/05/26/Flexbox布局/23.png" alt="23.png" title=""></li>
+<li>wrap-reverse：换行，第一行在下方。<img src="/2017/05/26/Flexbox布局/24.png" alt="24.png" title="">
+</li>
+</ul>
 <p><strong>flex-flow</strong>：是flex-wrap和flex-direction的速记属性<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123; </div><div class="line">    <span class="attribute">flex-flow</span>: &lt;flex-direction&gt; || &lt;flex-wrap&gt;; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><strong>justify-content</strong>：主要定义了flex项目在main-axis上的对齐方式。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123; </div><div class="line">    <span class="attribute">justify-content</span>: flex-start | flex-end | center | space-between | space-around; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <ul>
@@ -438,7 +443,7 @@
 <p><strong>flex</strong>: 是flex-grow、flex-shrink和flex-basis的简写，默认值为0 1 auto（后两者个属性可选）。<br>该属性有两个快捷值：auto (1 1 auto)和 none (0 0 auto)<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.item</span> &#123; </div><div class="line">    <span class="attribute">flex</span>: none | [ &lt;<span class="string">'flex-grow'</span>&gt; &lt;<span class="string">'flex-shrink'</span>&gt;? || &lt;<span class="string">'flex-basis'</span>&gt; ] </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><strong>align-self</strong>:允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.item</span> &#123; </div><div class="line">    <span class="attribute">align-self</span>: auto | flex-start | flex-end | center | baseline | stretch; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <img src="/2017/05/26/Flexbox布局/20.png" alt="20.png" title="">
-<p>参考: <a href="http://www.w3cplus.com/css3/understanding-flexbox-everything-you-need-to-know.html" target="_blank" rel="external">http://www.w3cplus.com/css3/understanding-flexbox-everything-you-need-to-know.html</a><br>参考: <a href="http://static.vgee.cn/static/index.html" target="_blank" rel="external">http://static.vgee.cn/static/index.html</a></p>
+<p>参考: <a href="http://static.vgee.cn/static/index.html" target="_blank" rel="external">http://static.vgee.cn/static/index.html</a><br>参考: <a href="http://www.w3cplus.com/css3/understanding-flexbox-everything-you-need-to-know.html" target="_blank" rel="external">http://www.w3cplus.com/css3/understanding-flexbox-everything-you-need-to-know.html</a></p>
 
       
     </div>
