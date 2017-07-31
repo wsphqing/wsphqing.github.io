@@ -362,7 +362,7 @@
         
           <h2 id="需不需要连接池"><a href="#需不需要连接池" class="headerlink" title="需不需要连接池"></a>需不需要连接池</h2><p>连接池的主要作用是减少每次建立连接所带来的开销。初步看，<code>nodejs</code>运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下：</p>
 <h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><p><code>redis</code>服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。</p>
-<p>从详细图像来看<code>nodejs</code>连接<code>redis</code>用连接池有没有意义：<br></p>
+<p>从详细图像来看<code>nodejs</code>连接<code>redis</code>用连接池有没有意义：<br><img src="/2017/07/31/redis-mysql-连接池问题/1.png" alt="1.png" title=""></p>
 <p>上图中，<code>nodejs</code>共有两个连接，分别发送查询请求到<code>redis</code>服务器上。因为<code>redis</code>是单线程作业，不管两个查询任务是由一个连接发来还是多个连接发来，也不管任务是串行一前一后发送到服务器，还是并行同时发送到服务器上，<code>redis</code>都将它们一个一个顺序执行，并通过当前谅解返回给客户端(<code>nodejs</code>)。<code>nodejs</code>接收到<code>redis</code>的返回后，也管不了并行不并行，都得等它<code>nodejs</code>主线程空闲的时候才能来一个个处理服务器返回的数据。</p>
 <p>所以单从上面分析来看，<code>nodejs</code> - <code>redis</code> 只主要公用一个连接就可以了，所以是不需要连接池的。</p>
           <!--noindex-->

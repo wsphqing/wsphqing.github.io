@@ -97,10 +97,14 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/index.html">
 <meta property="og:site_name" content="面对巨人">
 <meta property="og:description" content="需不需要连接池连接池的主要作用是减少每次建立连接所带来的开销。初步看，nodejs运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下： redisredis服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。 从详细图像来看nodejs连接redis用连接池有没有意义： 上图中，nodejs共有两个连接，分别发送查询请求到redis服">
-<meta property="og:updated_time" content="2017-07-31T07:59:26.851Z">
+<meta property="og:image" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/1.png">
+<meta property="og:image" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/2.png">
+<meta property="og:image" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/3.png">
+<meta property="og:updated_time" content="2017-07-31T08:17:40.323Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis/mysql 连接池问题">
 <meta name="twitter:description" content="需不需要连接池连接池的主要作用是减少每次建立连接所带来的开销。初步看，nodejs运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下： redisredis服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。 从详细图像来看nodejs连接redis用连接池有没有意义： 上图中，nodejs共有两个连接，分别发送查询请求到redis服">
+<meta name="twitter:image" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/1.png">
 
 
 
@@ -358,16 +362,16 @@
       
         <h2 id="需不需要连接池"><a href="#需不需要连接池" class="headerlink" title="需不需要连接池"></a>需不需要连接池</h2><p>连接池的主要作用是减少每次建立连接所带来的开销。初步看，<code>nodejs</code>运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下：</p>
 <h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><p><code>redis</code>服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。</p>
-<p>从详细图像来看<code>nodejs</code>连接<code>redis</code>用连接池有没有意义：<br></p>
+<p>从详细图像来看<code>nodejs</code>连接<code>redis</code>用连接池有没有意义：<br><img src="/2017/07/31/redis-mysql-连接池问题/1.png" alt="1.png" title=""></p>
 <p>上图中，<code>nodejs</code>共有两个连接，分别发送查询请求到<code>redis</code>服务器上。因为<code>redis</code>是单线程作业，不管两个查询任务是由一个连接发来还是多个连接发来，也不管任务是串行一前一后发送到服务器，还是并行同时发送到服务器上，<code>redis</code>都将它们一个一个顺序执行，并通过当前谅解返回给客户端(<code>nodejs</code>)。<code>nodejs</code>接收到<code>redis</code>的返回后，也管不了并行不并行，都得等它<code>nodejs</code>主线程空闲的时候才能来一个个处理服务器返回的数据。</p>
 <p>所以单从上面分析来看，<code>nodejs</code> - <code>redis</code> 只主要公用一个连接就可以了，所以是不需要连接池的。</p>
 <a id="more"></a>
-<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p><code>mysql</code>不是单线程服务，它可以并行处理对个查询请求。<br></p>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p><code>mysql</code>不是单线程服务，它可以并行处理对个查询请求。<br><img src="/2017/07/31/redis-mysql-连接池问题/2.png" alt="2.png" title=""></p>
 <p>上图中，<code>mysql</code>会为每个连接创建一个单独的线程来进行查询。不同于<code>redis</code>数据基本都在内存中，<code>mysql</code>会有大量的读取磁盘IO操作，所以多个线程一起工作会比一个一个查询要快。</p>
 <p>但是<code>nodejs</code>又是单线程的，它能不能同时发送多个请求到<code>mysql</code>服务器上呢？</p>
 <p>要理解<code>nodejs</code>的运作，虽然<code>nodejs</code>是一个主线程，但是它调用的IO指令等是通过另外的线程去做的，IO指令完成后就给主线程一个小任务片，也就是回调函数。</p>
 <p>有个很关键的点就是，<code>nodejs</code>主线程只有一个，但是IO线程会有多个。</p>
-<p>因此如果用<code>nodejs</code> - <code>mysql</code>只用单个连接的话那么就利用不到<code>mysql</code>能同时服务多个查询的优势。应该使用类似下图的运作方式，    <code>nodejs</code>使用多个连接来连接<code>mysql</code>。多连接是需要连接池的，有连接池就避免了每次连接都要去创建销毁的消耗了。<br></p>
+<p>因此如果用<code>nodejs</code> - <code>mysql</code>只用单个连接的话那么就利用不到<code>mysql</code>能同时服务多个查询的优势。应该使用类似下图的运作方式，    <code>nodejs</code>使用多个连接来连接<code>mysql</code>。多连接是需要连接池的，有连接池就避免了每次连接都要去创建销毁的消耗了。<br><img src="/2017/07/31/redis-mysql-连接池问题/3.png" alt="3.png" title=""></p>
 <p>所以我们认为<code>nodejs</code>是单线程而不是需要连接池是错误的，使用不使用连接池，不光看客户端，还要看数据库服务器等。要全盘理解整个系统的运作模式才能下结论。了解服务器的运作模式，有没有阻塞操作，是否是多线程等。<code>redis</code>设计成单线程主要原因肯能在于它的数据基本都在内存中，查询数据过程总不会产生阻塞过程，cpu也不会处于空闲状态。</p>
 <h2 id="全局连接断开重连问题"><a href="#全局连接断开重连问题" class="headerlink" title="全局连接断开重连问题"></a>全局连接断开重连问题</h2><p>到这里还没完。综上面的分析，<code>nodejs</code> - <code>mysql</code>用线程池是没什么问题的。<code>nodejs</code> - <code>redis</code>只用单个连接就够。不过也还是有人建议需要连接池。为了说明问题得从代码着手。我们使用<code>node-redis</code>这个包来做例子。</p>
 <p>例如新建了一个db.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> redis = <span class="built_in">require</span>(<span class="string">"redis"</span>),</div><div class="line">    client = redis.createClient(<span class="number">6379</span>, <span class="string">"127.0.0.1"</span>);</div><div class="line"><span class="built_in">module</span>.exports = client;</div></pre></td></tr></table></figure></p>
