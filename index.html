@@ -263,6 +263,157 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/31/Socket-io中namespace和room的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小学刚毕业">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="面对巨人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/31/Socket-io中namespace和room的区别/" itemprop="url">
+                  Socket.io中namespace和room的区别
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T16:58:22+08:00">
+                2017-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="socket，room，namespace三者关系"><a href="#socket，room，namespace三者关系" class="headerlink" title="socket，room，namespace三者关系"></a>socket，room，namespace三者关系</h2><p><code>socket.io</code>支持命名空间和房间，默认命名空间为<code>/</code>，没有默认的房间<br>注意：命名空间是<code>Socket.IO</code>协议的实现细节，与底层传输的实际URL无关，默认为/socket.io/…</p>
+<p><code>socket</code>一定是属于某个<code>namespace</code>，<code>room</code>一定属于<code>namespace</code>，<code>socket</code>可以在某个房间或者不在任何房间</p>
+<h2 id="命名空间-namespace"><a href="#命名空间-namespace" class="headerlink" title="命名空间(namespace)"></a>命名空间(namespace)</h2><p>服务器端可以使用<code>of</code>来创建命名空间:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> hua = io.of(<span class="string">'/huaqing'</span>);</div><div class="line">hua.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'someone connected ~'</span>);</div><div class="line">&#125;);</div><div class="line">hua.emit(<span class="string">'hi'</span>,<span class="string">'everyone~'</span>);</div></pre></td></tr></table></figure></p>
+<p>客户端可以使用:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> socket = io(<span class="string">'/huaqing'</span>);</div></pre></td></tr></table></figure></p>
+<p>链接到这个命名空间</p>
+<p>通常使用默认的命名空间，所以可以使用省去命名空间名字:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> socket = io(<span class="string">'/'</span>);</div><div class="line"><span class="keyword">var</span> socket = io();</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/31/Socket-io中namespace和room的区别/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1333,7 +1484,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

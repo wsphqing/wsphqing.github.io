@@ -90,21 +90,17 @@
 
 
 
-<meta name="description" content="需不需要连接池连接池的主要作用是减少每次建立连接所带来的开销。初步看，nodejs运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下： redisredis服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。 从详细图像来看nodejs连接redis用连接池有没有意义： 上图中，nodejs共有两个连接，分别发送查询请求到redis服">
+<meta name="description" content="socket，room，namespace三者关系socket.io支持命名空间和房间，默认命名空间为/，没有默认的房间注意：命名空间是Socket.IO协议的实现细节，与底层传输的实际URL无关，默认为/socket.io/… socket一定是属于某个namespace，room一定属于namespace，socket可以在某个房间或者不在任何房间 命名空间(namespace)服务器端可以使">
 <meta name="keywords" content="NodeJs">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis/mysql 连接池问题">
-<meta property="og:url" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/index.html">
+<meta property="og:title" content="Socket.io中namespace和room的区别">
+<meta property="og:url" content="http://yoursite.com/2017/07/31/Socket-io中namespace和room的区别/index.html">
 <meta property="og:site_name" content="面对巨人">
-<meta property="og:description" content="需不需要连接池连接池的主要作用是减少每次建立连接所带来的开销。初步看，nodejs运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下： redisredis服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。 从详细图像来看nodejs连接redis用连接池有没有意义： 上图中，nodejs共有两个连接，分别发送查询请求到redis服">
-<meta property="og:image" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/1.png">
-<meta property="og:image" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/2.png">
-<meta property="og:image" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/3.png">
-<meta property="og:updated_time" content="2017-07-31T08:17:40.323Z">
+<meta property="og:description" content="socket，room，namespace三者关系socket.io支持命名空间和房间，默认命名空间为/，没有默认的房间注意：命名空间是Socket.IO协议的实现细节，与底层传输的实际URL无关，默认为/socket.io/… socket一定是属于某个namespace，room一定属于namespace，socket可以在某个房间或者不在任何房间 命名空间(namespace)服务器端可以使">
+<meta property="og:updated_time" content="2017-07-31T09:16:48.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis/mysql 连接池问题">
-<meta name="twitter:description" content="需不需要连接池连接池的主要作用是减少每次建立连接所带来的开销。初步看，nodejs运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下： redisredis服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。 从详细图像来看nodejs连接redis用连接池有没有意义： 上图中，nodejs共有两个连接，分别发送查询请求到redis服">
-<meta name="twitter:image" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/1.png">
+<meta name="twitter:title" content="Socket.io中namespace和room的区别">
+<meta name="twitter:description" content="socket，room，namespace三者关系socket.io支持命名空间和房间，默认命名空间为/，没有默认的房间注意：命名空间是Socket.IO协议的实现细节，与底层传输的实际URL无关，默认为/socket.io/… socket一定是属于某个namespace，room一定属于namespace，socket可以在某个房间或者不在任何房间 命名空间(namespace)服务器端可以使">
 
 
 
@@ -132,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/31/Socket-io中namespace和room的区别/"/>
 
 
 
 
 
-  <title>redis/mysql 连接池问题 | 面对巨人</title>
+  <title>Socket.io中namespace和room的区别 | 面对巨人</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -267,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/31/Socket-io中namespace和room的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小学刚毕业">
@@ -288,7 +284,7 @@
             
             
               
-                redis/mysql 连接池问题
+                Socket.io中namespace和room的区别
               
             
           </h1>
@@ -303,7 +299,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T15:18:12+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T16:58:22+08:00">
                 2017-07-31
               </time>
             
@@ -360,26 +356,19 @@
       
 
       
-        <h2 id="需不需要连接池"><a href="#需不需要连接池" class="headerlink" title="需不需要连接池"></a>需不需要连接池</h2><p>连接池的主要作用是减少每次建立连接所带来的开销。初步看，<code>nodejs</code>运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下：</p>
-<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><p><code>redis</code>服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。</p>
-<p>从详细图像来看<code>nodejs</code>连接<code>redis</code>用连接池有没有意义：<br><img src="/2017/07/31/redis-mysql-连接池问题/1.png" alt="1.png" title=""></p>
-<p>上图中，<code>nodejs</code>共有两个连接，分别发送查询请求到<code>redis</code>服务器上。因为<code>redis</code>是单线程作业，不管两个查询任务是由一个连接发来还是多个连接发来，也不管任务是串行一前一后发送到服务器，还是并行同时发送到服务器上，<code>redis</code>都将它们一个一个顺序执行，并通过当前谅解返回给客户端(<code>nodejs</code>)。<code>nodejs</code>接收到<code>redis</code>的返回后，也管不了并行不并行，都得等它<code>nodejs</code>主线程空闲的时候才能来一个个处理服务器返回的数据。</p>
-<p>所以单从上面分析来看，<code>nodejs</code> - <code>redis</code> 只主要公用一个连接就可以了，所以是不需要连接池的。</p>
+        <h2 id="socket，room，namespace三者关系"><a href="#socket，room，namespace三者关系" class="headerlink" title="socket，room，namespace三者关系"></a>socket，room，namespace三者关系</h2><p><code>socket.io</code>支持命名空间和房间，默认命名空间为<code>/</code>，没有默认的房间<br>注意：命名空间是<code>Socket.IO</code>协议的实现细节，与底层传输的实际URL无关，默认为/socket.io/…</p>
+<p><code>socket</code>一定是属于某个<code>namespace</code>，<code>room</code>一定属于<code>namespace</code>，<code>socket</code>可以在某个房间或者不在任何房间</p>
+<h2 id="命名空间-namespace"><a href="#命名空间-namespace" class="headerlink" title="命名空间(namespace)"></a>命名空间(namespace)</h2><p>服务器端可以使用<code>of</code>来创建命名空间:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> hua = io.of(<span class="string">'/huaqing'</span>);</div><div class="line">hua.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'someone connected ~'</span>);</div><div class="line">&#125;);</div><div class="line">hua.emit(<span class="string">'hi'</span>,<span class="string">'everyone~'</span>);</div></pre></td></tr></table></figure></p>
+<p>客户端可以使用:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> socket = io(<span class="string">'/huaqing'</span>);</div></pre></td></tr></table></figure></p>
+<p>链接到这个命名空间</p>
+<p>通常使用默认的命名空间，所以可以使用省去命名空间名字:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> socket = io(<span class="string">'/'</span>);</div><div class="line"><span class="keyword">var</span> socket = io();</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p><code>mysql</code>不是单线程服务，它可以并行处理对个查询请求。<br><img src="/2017/07/31/redis-mysql-连接池问题/2.png" alt="2.png" title=""></p>
-<p>上图中，<code>mysql</code>会为每个连接创建一个单独的线程来进行查询。不同于<code>redis</code>数据基本都在内存中，<code>mysql</code>会有大量的读取磁盘IO操作，所以多个线程一起工作会比一个一个查询要快。</p>
-<p>但是<code>nodejs</code>又是单线程的，它能不能同时发送多个请求到<code>mysql</code>服务器上呢？</p>
-<p>要理解<code>nodejs</code>的运作，虽然<code>nodejs</code>是一个主线程，但是它调用的IO指令等是通过另外的线程去做的，IO指令完成后就给主线程一个小任务片，也就是回调函数。</p>
-<p>有个很关键的点就是，<code>nodejs</code>主线程只有一个，但是IO线程会有多个。</p>
-<p>因此如果用<code>nodejs</code> - <code>mysql</code>只用单个连接的话那么就利用不到<code>mysql</code>能同时服务多个查询的优势。应该使用类似下图的运作方式，    <code>nodejs</code>使用多个连接来连接<code>mysql</code>。多连接是需要连接池的，有连接池就避免了每次连接都要去创建销毁的消耗了。<br><img src="/2017/07/31/redis-mysql-连接池问题/3.png" alt="3.png" title=""></p>
-<p>所以我们认为<code>nodejs</code>是单线程而不是需要连接池是错误的，使用不使用连接池，不光看客户端，还要看数据库服务器等。要全盘理解整个系统的运作模式才能下结论。了解服务器的运作模式，有没有阻塞操作，是否是多线程等。<code>redis</code>设计成单线程主要原因肯能在于它的数据基本都在内存中，查询数据过程总不会产生阻塞过程，cpu也不会处于空闲状态。</p>
-<h2 id="全局连接断开重连问题"><a href="#全局连接断开重连问题" class="headerlink" title="全局连接断开重连问题"></a>全局连接断开重连问题</h2><p>到这里还没完。综上面的分析，<code>nodejs</code> - <code>mysql</code>用线程池是没什么问题的。<code>nodejs</code> - <code>redis</code>只用单个连接就够。不过也还是有人建议需要连接池。为了说明问题得从代码着手。我们使用<code>node-redis</code>这个包来做例子。</p>
-<p>例如新建了一个db.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> redis = <span class="built_in">require</span>(<span class="string">"redis"</span>),</div><div class="line">    client = redis.createClient(<span class="number">6379</span>, <span class="string">"127.0.0.1"</span>);</div><div class="line"><span class="built_in">module</span>.exports = client;</div></pre></td></tr></table></figure></p>
-<p>上面的连接会在程序启动载入完后就连接上了。使用它的时候引入它就可以使用全局唯一的连接。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> db = <span class="built_in">require</span>(<span class="string">"db.js"</span>);</div><div class="line">exports.add = <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">  db.get(<span class="string">"keyName"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    res.send(<span class="string">"ok"</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这里于是有这样的问题存在:<br>但此处全局只有一个连接，并且这个连接是程序启动的时候创建的。它不同于连接池中的连接那样运行时候动态创建。如果某个时候唯一的连接断掉了，程序又不会动态去创建连接，岂不是需要重新启动服务器才行。</p>
-<p>看是来挺可怕，但好在这个问题是不存在的。因为<code>redis</code>的客户端会自动重新连接，所以不需要重新启动服务器。<br>但是因为连接断开那一小段时间，应用服务器不能正常对外服务，但是连接自动重连是需要一定的时间间隔的。例如一秒之后，所以这一秒之内系统是处在不能服务状态。</p>
-<p>也正是基于上面这样的原因，于是就有连接redis使用连接池的做法。如果使用连接池来管理，当连接不可用的时候立即手动去创建新连接。和自动重连相比，一个是手动立即重连，一个是等到一定间隔重连。相对来说手动重连的时间更短，也就是说系统那1秒中不能服务的状态或许可以缩短成0.5秒。于是就有了使用连接池管理<code>redis</code>连接的做法。严格来说这个不能算是连接池，而是一个<strong>连接管理模块</strong>。 </p>
-<p>原文：<a href="http://www.cnblogs.com/laozhbook/p/nodejs_redis_connection_pool.html?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">http://www.cnblogs.com/laozhbook/p/nodejs_redis_connection_pool.html?utm_source=tuicool&amp;utm_medium=referral</a></p>
+<h2 id="房间-room"><a href="#房间-room" class="headerlink" title="房间(room)"></a>房间(room)</h2><p>在每个命名空间中，还可以定义频道，可以加入和离开的任意频道</p>
+<p>创建和加入房间是同一个函数<code>join</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  socket.join(<span class="string">'some room'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>离开房间:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">socket.leave(<span class="string">'room'</span>);</div></pre></td></tr></table></figure></p>
+<p>给房间中的所有客户端发送消息:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">io.to(<span class="string">'room'</span>).emit(message);</div><div class="line">io.socket.in(<span class="string">'room'</span>).emit(message);</div></pre></td></tr></table></figure></p>
+<p>广播消息:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  socket.broadcast.emit(<span class="string">'user connected'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在<code>Socket.IO</code>，每个<code>socket</code> 是通过一个随机、不可猜测的标识 <code>Socket# id</code> 来识别的。为了方便，每个<code>socket</code>通过这个<code>id</code>标识来自动加入房间。<br>这样可以方便地将消息广播到其他<code>socket</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">scoket</span>)</span>&#123;</div><div class="line">  socket.on(<span class="string">'say to someone'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">id, msg</span>)</span>&#123;</div><div class="line">    socket.broadcast.to(id).emit(<span class="string">'my message'</span>, msg);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -422,18 +411,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/31/Socket-io中namespace和room的区别/" rel="next" title="Socket.io中namespace和room的区别">
-                <i class="fa fa-chevron-left"></i> Socket.io中namespace和room的区别
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/22/CommonJS规范/" rel="prev" title="CommonJS规范">
-                CommonJS规范 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/31/redis-mysql-连接池问题/" rel="prev" title="redis/mysql 连接池问题">
+                redis/mysql 连接池问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -563,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需不需要连接池"><span class="nav-number">1.</span> <span class="nav-text">需不需要连接池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number">1.1.</span> <span class="nav-text">redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number">1.2.</span> <span class="nav-text">mysql</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局连接断开重连问题"><span class="nav-number">2.</span> <span class="nav-text">全局连接断开重连问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#socket，room，namespace三者关系"><span class="nav-number">1.</span> <span class="nav-text">socket，room，namespace三者关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间-namespace"><span class="nav-number">2.</span> <span class="nav-text">命名空间(namespace)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#房间-room"><span class="nav-number">3.</span> <span class="nav-text">房间(room)</span></a></li></ol></div>
             
 
           </div>
