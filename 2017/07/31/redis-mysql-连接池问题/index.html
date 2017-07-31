@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="HTML," />
+  <meta name="keywords" content="NodeJs," />
 
 
 
@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="viewportviewport 是专为手机浏览器设计的一个meta标签，将原始视图在手机上放大的机制，使用viewport标签可以解决这个问题。 1&amp;lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&amp;gt; 12345width=device-width //表示此宽度不依赖于原始像素（px），而依赖于屏幕">
-<meta name="keywords" content="HTML">
+<meta name="description" content="需不需要连接池连接池的主要作用是减少每次建立连接所带来的开销。初步看，nodejs运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下： redisredis服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。 从详细图像来看nodejs连接redis用连接池有没有意义： 上图中，nodejs共有两个连接，分别发送查询请求到redis服">
+<meta name="keywords" content="NodeJs">
 <meta property="og:type" content="article">
-<meta property="og:title" content="viewport">
-<meta property="og:url" content="http://yoursite.com/2017/05/25/viewport/index.html">
+<meta property="og:title" content="redis/mysql 连接池问题">
+<meta property="og:url" content="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/index.html">
 <meta property="og:site_name" content="面对巨人">
-<meta property="og:description" content="viewportviewport 是专为手机浏览器设计的一个meta标签，将原始视图在手机上放大的机制，使用viewport标签可以解决这个问题。 1&amp;lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&amp;gt; 12345width=device-width //表示此宽度不依赖于原始像素（px），而依赖于屏幕">
-<meta property="og:updated_time" content="2017-05-27T05:06:07.059Z">
+<meta property="og:description" content="需不需要连接池连接池的主要作用是减少每次建立连接所带来的开销。初步看，nodejs运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下： redisredis服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。 从详细图像来看nodejs连接redis用连接池有没有意义： 上图中，nodejs共有两个连接，分别发送查询请求到redis服">
+<meta property="og:updated_time" content="2017-07-31T07:59:26.851Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="viewport">
-<meta name="twitter:description" content="viewportviewport 是专为手机浏览器设计的一个meta标签，将原始视图在手机上放大的机制，使用viewport标签可以解决这个问题。 1&amp;lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&amp;gt; 12345width=device-width //表示此宽度不依赖于原始像素（px），而依赖于屏幕">
+<meta name="twitter:title" content="redis/mysql 连接池问题">
+<meta name="twitter:description" content="需不需要连接池连接池的主要作用是减少每次建立连接所带来的开销。初步看，nodejs运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下： redisredis服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。 从详细图像来看nodejs连接redis用连接池有没有意义： 上图中，nodejs共有两个连接，分别发送查询请求到redis服">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/25/viewport/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/"/>
 
 
 
 
 
-  <title>viewport | 面对巨人</title>
+  <title>redis/mysql 连接池问题 | 面对巨人</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/25/viewport/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/31/redis-mysql-连接池问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小学刚毕业">
@@ -284,7 +284,7 @@
             
             
               
-                viewport
+                redis/mysql 连接池问题
               
             
           </h1>
@@ -299,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-25T14:13:26+08:00">
-                2017-05-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T15:18:12+08:00">
+                2017-07-31
               </time>
             
 
@@ -356,11 +356,26 @@
       
 
       
-        <h2 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h2><p>viewport 是专为手机浏览器设计的一个meta标签，将原始视图在手机上放大的机制，使用viewport标签可以解决这个问题。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">width=device-width //表示此宽度不依赖于原始像素（px），而依赖于屏幕的宽度</div><div class="line">initial-scale //初始缩放比例</div><div class="line">maximum-scale //允许缩放的最大比例</div><div class="line">minimum-scale //允许缩放的最小比例</div><div class="line">user-scalable //是否允许手动缩放</div></pre></td></tr></table></figure>
-<p>之前相对于当前窗口固定的悬浮块，用户放大并滑动后会始终停留在原地  启用virtual viewport 后悬浮框就可以拖动了，它不需要额外的标签，并且设备默认启用</p>
-<p><strong>手机上慎用 position:fixed</strong></p>
+        <h2 id="需不需要连接池"><a href="#需不需要连接池" class="headerlink" title="需不需要连接池"></a>需不需要连接池</h2><p>连接池的主要作用是减少每次建立连接所带来的开销。初步看，<code>nodejs</code>运行单线程上，它不能同时使用多个连接，因此不需要连接池。这是我们初步的感觉，下面详细分析一下：</p>
+<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><p><code>redis</code>服务器也是运行在单线程上的，连个都是单线程，更加坚定了不需要连接池的结论。</p>
+<p>从详细图像来看<code>nodejs</code>连接<code>redis</code>用连接池有没有意义：<br></p>
+<p>上图中，<code>nodejs</code>共有两个连接，分别发送查询请求到<code>redis</code>服务器上。因为<code>redis</code>是单线程作业，不管两个查询任务是由一个连接发来还是多个连接发来，也不管任务是串行一前一后发送到服务器，还是并行同时发送到服务器上，<code>redis</code>都将它们一个一个顺序执行，并通过当前谅解返回给客户端(<code>nodejs</code>)。<code>nodejs</code>接收到<code>redis</code>的返回后，也管不了并行不并行，都得等它<code>nodejs</code>主线程空闲的时候才能来一个个处理服务器返回的数据。</p>
+<p>所以单从上面分析来看，<code>nodejs</code> - <code>redis</code> 只主要公用一个连接就可以了，所以是不需要连接池的。</p>
+<a id="more"></a>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p><code>mysql</code>不是单线程服务，它可以并行处理对个查询请求。<br></p>
+<p>上图中，<code>mysql</code>会为每个连接创建一个单独的线程来进行查询。不同于<code>redis</code>数据基本都在内存中，<code>mysql</code>会有大量的读取磁盘IO操作，所以多个线程一起工作会比一个一个查询要快。</p>
+<p>但是<code>nodejs</code>又是单线程的，它能不能同时发送多个请求到<code>mysql</code>服务器上呢？</p>
+<p>要理解<code>nodejs</code>的运作，虽然<code>nodejs</code>是一个主线程，但是它调用的IO指令等是通过另外的线程去做的，IO指令完成后就给主线程一个小任务片，也就是回调函数。</p>
+<p>有个很关键的点就是，<code>nodejs</code>主线程只有一个，但是IO线程会有多个。</p>
+<p>因此如果用<code>nodejs</code> - <code>mysql</code>只用单个连接的话那么就利用不到<code>mysql</code>能同时服务多个查询的优势。应该使用类似下图的运作方式，    <code>nodejs</code>使用多个连接来连接<code>mysql</code>。多连接是需要连接池的，有连接池就避免了每次连接都要去创建销毁的消耗了。<br></p>
+<p>所以我们认为<code>nodejs</code>是单线程而不是需要连接池是错误的，使用不使用连接池，不光看客户端，还要看数据库服务器等。要全盘理解整个系统的运作模式才能下结论。了解服务器的运作模式，有没有阻塞操作，是否是多线程等。<code>redis</code>设计成单线程主要原因肯能在于它的数据基本都在内存中，查询数据过程总不会产生阻塞过程，cpu也不会处于空闲状态。</p>
+<h2 id="全局连接断开重连问题"><a href="#全局连接断开重连问题" class="headerlink" title="全局连接断开重连问题"></a>全局连接断开重连问题</h2><p>到这里还没完。综上面的分析，<code>nodejs</code> - <code>mysql</code>用线程池是没什么问题的。<code>nodejs</code> - <code>redis</code>只用单个连接就够。不过也还是有人建议需要连接池。为了说明问题得从代码着手。我们使用<code>node-redis</code>这个包来做例子。</p>
+<p>例如新建了一个db.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> redis = <span class="built_in">require</span>(<span class="string">"redis"</span>),</div><div class="line">    client = redis.createClient(<span class="number">6379</span>, <span class="string">"127.0.0.1"</span>);</div><div class="line"><span class="built_in">module</span>.exports = client;</div></pre></td></tr></table></figure></p>
+<p>上面的连接会在程序启动载入完后就连接上了。使用它的时候引入它就可以使用全局唯一的连接。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> db = <span class="built_in">require</span>(<span class="string">"db.js"</span>);</div><div class="line">exports.add = <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">  db.get(<span class="string">"keyName"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    res.send(<span class="string">"ok"</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里于是有这样的问题存在:<br>但此处全局只有一个连接，并且这个连接是程序启动的时候创建的。它不同于连接池中的连接那样运行时候动态创建。如果某个时候唯一的连接断掉了，程序又不会动态去创建连接，岂不是需要重新启动服务器才行。</p>
+<p>看是来挺可怕，但好在这个问题是不存在的。因为<code>redis</code>的客户端会自动重新连接，所以不需要重新启动服务器。<br>但是因为连接断开那一小段时间，应用服务器不能正常对外服务，但是连接自动重连是需要一定的时间间隔的。例如一秒之后，所以这一秒之内系统是处在不能服务状态。</p>
+<p>也正是基于上面这样的原因，于是就有连接redis使用连接池的做法。如果使用连接池来管理，当连接不可用的时候立即手动去创建新连接。和自动重连相比，一个是手动立即重连，一个是等到一定间隔重连。相对来说手动重连的时间更短，也就是说系统那1秒中不能服务的状态或许可以缩短成0.5秒。于是就有了使用连接池管理<code>redis</code>连接的做法。严格来说这个不能算是连接池，而是一个<strong>连接管理模块</strong>。 </p>
+<p>原文：<a href="http://www.cnblogs.com/laozhbook/p/nodejs_redis_connection_pool.html?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">http://www.cnblogs.com/laozhbook/p/nodejs_redis_connection_pool.html?utm_source=tuicool&amp;utm_medium=referral</a></p>
 
       
     </div>
@@ -390,7 +405,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HTML/" rel="tag"># HTML</a>
+            <a href="/tags/NodeJs/" rel="tag"># NodeJs</a>
           
         </div>
       
@@ -403,18 +418,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/26/Flexbox布局/" rel="next" title="Flexbox布局">
-                <i class="fa fa-chevron-left"></i> Flexbox布局
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/04/socket-io长连接API/" rel="prev" title="socket.io长连接API">
-                socket.io长连接API <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/22/CommonJS规范/" rel="prev" title="CommonJS规范">
+                CommonJS规范 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -544,7 +555,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#viewport"><span class="nav-number">1.</span> <span class="nav-text">viewport</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需不需要连接池"><span class="nav-number">1.</span> <span class="nav-text">需不需要连接池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number">1.1.</span> <span class="nav-text">redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number">1.2.</span> <span class="nav-text">mysql</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局连接断开重连问题"><span class="nav-number">2.</span> <span class="nav-text">全局连接断开重连问题</span></a></li></ol></div>
             
 
           </div>
