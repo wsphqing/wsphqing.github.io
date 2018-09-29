@@ -97,7 +97,8 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/31/Socket-io中namespace和room的区别/index.html">
 <meta property="og:site_name" content="面对巨人">
 <meta property="og:description" content="socket，room，namespace三者关系socket.io支持命名空间和房间，默认命名空间为/，没有默认的房间注意：命名空间是Socket.IO协议的实现细节，与底层传输的实际URL无关，默认为/socket.io/… socket一定是属于某个namespace，room一定属于namespace，socket可以在某个房间或者不在任何房间 命名空间(namespace)服务器端可以使">
-<meta property="og:updated_time" content="2017-07-31T09:16:48.903Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-31T09:16:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Socket.io中namespace和room的区别">
 <meta name="twitter:description" content="socket，room，namespace三者关系socket.io支持命名空间和房间，默认命名空间为/，没有默认的房间注意：命名空间是Socket.IO协议的实现细节，与底层传输的实际URL无关，默认为/socket.io/… socket一定是属于某个namespace，room一定属于namespace，socket可以在某个房间或者不在任何房间 命名空间(namespace)服务器端可以使">
@@ -358,17 +359,17 @@
       
         <h2 id="socket，room，namespace三者关系"><a href="#socket，room，namespace三者关系" class="headerlink" title="socket，room，namespace三者关系"></a>socket，room，namespace三者关系</h2><p><code>socket.io</code>支持命名空间和房间，默认命名空间为<code>/</code>，没有默认的房间<br>注意：命名空间是<code>Socket.IO</code>协议的实现细节，与底层传输的实际URL无关，默认为/socket.io/…</p>
 <p><code>socket</code>一定是属于某个<code>namespace</code>，<code>room</code>一定属于<code>namespace</code>，<code>socket</code>可以在某个房间或者不在任何房间</p>
-<h2 id="命名空间-namespace"><a href="#命名空间-namespace" class="headerlink" title="命名空间(namespace)"></a>命名空间(namespace)</h2><p>服务器端可以使用<code>of</code>来创建命名空间:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> hua = io.of(<span class="string">'/huaqing'</span>);</div><div class="line">hua.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'someone connected ~'</span>);</div><div class="line">&#125;);</div><div class="line">hua.emit(<span class="string">'hi'</span>,<span class="string">'everyone~'</span>);</div></pre></td></tr></table></figure></p>
-<p>客户端可以使用:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> socket = io(<span class="string">'/huaqing'</span>);</div></pre></td></tr></table></figure></p>
+<h2 id="命名空间-namespace"><a href="#命名空间-namespace" class="headerlink" title="命名空间(namespace)"></a>命名空间(namespace)</h2><p>服务器端可以使用<code>of</code>来创建命名空间:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hua = io.of(<span class="string">'/huaqing'</span>);</span><br><span class="line">hua.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'someone connected ~'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">hua.emit(<span class="string">'hi'</span>,<span class="string">'everyone~'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>客户端可以使用:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io(<span class="string">'/huaqing'</span>);</span><br></pre></td></tr></table></figure></p>
 <p>链接到这个命名空间</p>
-<p>通常使用默认的命名空间，所以可以使用省去命名空间名字:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> socket = io(<span class="string">'/'</span>);</div><div class="line"><span class="keyword">var</span> socket = io();</div></pre></td></tr></table></figure></p>
+<p>通常使用默认的命名空间，所以可以使用省去命名空间名字:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io(<span class="string">'/'</span>);</span><br><span class="line"><span class="keyword">var</span> socket = io();</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <h2 id="房间-room"><a href="#房间-room" class="headerlink" title="房间(room)"></a>房间(room)</h2><p>在每个命名空间中，还可以定义频道，可以加入和离开的任意频道</p>
-<p>创建和加入房间是同一个函数<code>join</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  socket.join(<span class="string">'some room'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>离开房间:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">socket.leave(<span class="string">'room'</span>);</div></pre></td></tr></table></figure></p>
-<p>给房间中的所有客户端发送消息:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">io.to(<span class="string">'room'</span>).emit(message);</div><div class="line">io.socket.in(<span class="string">'room'</span>).emit(message);</div></pre></td></tr></table></figure></p>
-<p>广播消息:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  socket.broadcast.emit(<span class="string">'user connected'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>在<code>Socket.IO</code>，每个<code>socket</code> 是通过一个随机、不可猜测的标识 <code>Socket# id</code> 来识别的。为了方便，每个<code>socket</code>通过这个<code>id</code>标识来自动加入房间。<br>这样可以方便地将消息广播到其他<code>socket</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">scoket</span>)</span>&#123;</div><div class="line">  socket.on(<span class="string">'say to someone'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">id, msg</span>)</span>&#123;</div><div class="line">    socket.broadcast.to(id).emit(<span class="string">'my message'</span>, msg);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>创建和加入房间是同一个函数<code>join</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">  socket.join(<span class="string">'some room'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>离开房间:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socket.leave(<span class="string">'room'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>给房间中的所有客户端发送消息:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">io.to(<span class="string">'room'</span>).emit(message);</span><br><span class="line">io.socket.in(<span class="string">'room'</span>).emit(message);</span><br></pre></td></tr></table></figure></p>
+<p>广播消息:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">  socket.broadcast.emit(<span class="string">'user connected'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在<code>Socket.IO</code>，每个<code>socket</code> 是通过一个随机、不可猜测的标识 <code>Socket# id</code> 来识别的。为了方便，每个<code>socket</code>通过这个<code>id</code>标识来自动加入房间。<br>这样可以方便地将消息广播到其他<code>socket</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">io.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">scoket</span>)</span>&#123;</span><br><span class="line">  socket.on(<span class="string">'say to someone'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">id, msg</span>)</span>&#123;</span><br><span class="line">    socket.broadcast.to(id).emit(<span class="string">'my message'</span>, msg);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -411,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/31/数据库设计——范式/" rel="next" title="数据库设计——范式">
-                <i class="fa fa-chevron-left"></i> 数据库设计——范式
+              <a href="/2017/07/31/redis-mysql-连接池问题/" rel="next" title="redis/mysql 连接池问题">
+                <i class="fa fa-chevron-left"></i> redis/mysql 连接池问题
               </a>
             
           </div>
@@ -421,8 +422,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/31/redis-mysql-连接池问题/" rel="prev" title="redis/mysql 连接池问题">
-                redis/mysql 连接池问题 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/31/数据库设计——范式/" rel="prev" title="数据库设计——范式">
+                数据库设计——范式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
