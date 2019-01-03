@@ -90,17 +90,20 @@
 
 
 
-<meta name="description" content="test">
+<meta name="description" content="申请小程序账号  微信公众平台注册小程序，并登陆进行配置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微信小程序初探">
 <meta property="og:url" content="http://yoursite.com/2018/09/29/微信小程序初探/index.html">
 <meta property="og:site_name" content="面对巨人">
-<meta property="og:description" content="test">
+<meta property="og:description" content="申请小程序账号  微信公众平台注册小程序，并登陆进行配置">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-29T03:36:31.000Z">
+<meta property="og:image" content="http://yoursite.com/2018/09/29/微信小程序初探/a.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/29/微信小程序初探/c.png">
+<meta property="og:updated_time" content="2019-01-03T11:00:22.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信小程序初探">
-<meta name="twitter:description" content="test">
+<meta name="twitter:description" content="申请小程序账号  微信公众平台注册小程序，并登陆进行配置">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/29/微信小程序初探/a.png">
 
 
 
@@ -334,7 +337,27 @@
       
 
       
-        <h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3>
+        <h2 id="申请小程序账号"><a href="#申请小程序账号" class="headerlink" title="申请小程序账号"></a>申请小程序账号</h2><img src="/2018/09/29/微信小程序初探/a.png">
+<p><br></p>
+<p>微信公众平台注册小程序，并登陆进行配置<br><img src="/2018/09/29/微信小程序初探/c.png"></p>
+<a id="more"></a>
+<h2 id="构成"><a href="#构成" class="headerlink" title="构成"></a>构成</h2><ol>
+<li>.json 后缀的 JSON 配置文件</li>
+<li>.wxml 后缀的 WXML 模板文件</li>
+<li>.wxss 后缀的 WXSS 样式文件</li>
+<li>.js 后缀的 JS 脚本逻辑文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">+---- app.js</span><br><span class="line">+---- app.json</span><br><span class="line">+---- app.wxss</span><br><span class="line">+---- pages</span><br><span class="line">|     +---- index</span><br><span class="line">|     |     +----index.wxml</span><br><span class="line">|     |     +----index.js</span><br><span class="line">|     |     +----index.json</span><br><span class="line">|     |     +----index.wxss</span><br><span class="line">|     +---- logs</span><br><span class="line">|           +----logs.wxml</span><br><span class="line">|           +----logs.js</span><br><span class="line">+---- utils</span><br></pre></td></tr></table></figure>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wx.navigateTo(</span><br><span class="line">  &#123;</span><br><span class="line">    url: ‘/pages/test/test’</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">navigator</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">url</span>=<span class="string">"/pages/redirect/redirect"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">open-type</span>=<span class="string">"redirect"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">hover-class</span>=<span class="string">"navigator-hover"</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">  在当前页打开</span><br><span class="line"><span class="tag">&lt;/<span class="name">navigator</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"section"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"section__title"</span>&gt;</span>flex-direction: row<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"flex-wrp"</span> <span class="attr">style</span>=<span class="string">"flex-direction:row;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"flex-item bc_green"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"flex-item bc_red"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"flex-item bc_blue"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"section"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"section__title"</span>&gt;</span>flex-direction: column<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"flex-wrp"</span> <span class="attr">style</span>=<span class="string">"height: 300px;flex-direction:column;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"flex-item bc_green"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"flex-item bc_red"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"flex-item bc_blue"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wx.getSetting(<span class="built_in">Object</span> object);</span><br><span class="line">wx.getStorageSync(string key);</span><br></pre></td></tr></table></figure>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><ul>
+<li>touchStart</li>
+<li>touchMove</li>
+<li>touchEnd</li>
+</ul>
+
       
     </div>
 
@@ -507,7 +530,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#test"><span class="nav-number">1.</span> <span class="nav-text">test</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#申请小程序账号"><span class="nav-number">1.</span> <span class="nav-text">申请小程序账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构成"><span class="nav-number">2.</span> <span class="nav-text">构成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由"><span class="nav-number">3.</span> <span class="nav-text">路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">4.</span> <span class="nav-text">组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">5.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件"><span class="nav-number">6.</span> <span class="nav-text">事件</span></a></li></ol></div>
             
 
           </div>
@@ -530,7 +553,7 @@
         <div class="copyright" >
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
